@@ -1,14 +1,23 @@
 {
   "name": "proxycheck-ts",
-  "version": "0.0.4",
-  "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "0.0.5",
+  "type": "module",
+  "description": "ProxyCheck.io API Client",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "repository": {
     "url": "https://github.com/neo773/proxycheck-ts"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +26,7 @@
     "node-fetch": "^3.3.1"
   },
   "devDependencies": {
+    "tsup": "^7.1.0",
     "typescript": "^5.1.3"
   }
 }

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "allowUnreachableCode": false,
+      "allowUnusedLabels": false,
+      "esModuleInterop": true,
+      "lib": ["esnext", "DOM"],
+      "module": "esnext",
+      "moduleResolution": "node",
+      "skipLibCheck": true,
+      "strict": false,
+      "target": "esnext",
+      "declaration": true,
+      "outDir": "dist"
+    },
+    "include": ["./src"],
+    "exclude": ["node_modules"],
+  }

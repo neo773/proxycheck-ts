@@ -4,7 +4,7 @@
       "allowUnusedLabels": false,
       "esModuleInterop": true,
       "lib": ["esnext", "DOM"],
-      "module": "esnext",
+      "module": "CommonJS",
       "moduleResolution": "node",
       "skipLibCheck": true,
       "strict": false,

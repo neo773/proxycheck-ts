@@ -1,4 +1,9 @@
-import fetch from "node-fetch";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const node_fetch_1 = __importDefault(require("node-fetch"));
 const BASE_URL = "https://proxycheck.io";
 class ProxyCheck {
     api_key;
@@ -14,27 +19,27 @@ class ProxyCheck {
         }
         if (Array.isArray(ip)) {
             url.searchParams.append("ips", ip.join(","));
-            const response = await fetch(url.toString(), {
+            const response = await (0, node_fetch_1.default)(url.toString(), {
                 method: "POST",
                 body: url.searchParams,
             });
             return response.json();
         }
         else {
-            const response = await fetch(url.toString());
+            const response = await (0, node_fetch_1.default)(url.toString());
             const data = await response.json();
             return convertKeysToSnakeCase(data);
         }
     }
     async getUsage() {
         const url = `${BASE_URL}/dashboard/export/usage/?key=${this.api_key}`;
-        const response = await fetch(url);
+        const response = await (0, node_fetch_1.default)(url);
         const data = await response.json();
         return convertKeysToSnakeCase(data);
     }
     async getQueries() {
         const url = `${BASE_URL}/dashboard/export/queries/?json=1&key=${this.api_key}`;
-        const response = await fetch(url);
+        const response = await (0, node_fetch_1.default)(url);
         const data = await response.json();
         return convertToArray(convertKeysToSnakeCase(data));
     }
@@ -42,7 +47,7 @@ class ProxyCheck {
         const limit = options.limit ?? 100;
         const offset = options.offset ?? 0;
         const url = `${BASE_URL}/dashboard/export/detections/?json=1&key=${this.api_key}&limit=${limit}&offset=${offset}`;
-        const response = await fetch(url);
+        const response = await (0, node_fetch_1.default)(url);
         const data = await response.json();
         return convertToArray(convertKeysToSnakeCase(data));
     }
@@ -74,4 +79,4 @@ function convertKeysToSnakeCase(obj) {
     // @ts-ignore
     return snakeCaseObj;
 }
-export default ProxyCheck;
+exports.default = ProxyCheck;

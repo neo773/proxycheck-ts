@@ -16,19 +16,38 @@ import ProxyCheck from 'proxycheck-ts'
 const proxyCheck = new ProxyCheck({ api_key: 'your-api-key' });
 
 // Check single IP
-proxyCheck.checkIP('8.8.8.8').then(console.log).catch(console.error);
 
-// Check multiple IPs
-proxyCheck.checkIP(['8.8.8.8', '8.8.4.4']).then(console.log).catch(console.error);
+async function run() {
+    try {
+        // Check single IP
+        const singleIPResult = await proxyCheck.checkIP('8.8.8.8', {
+            // For all flags check https://proxycheck.io/api/#query_flags
+            asn: 1,
+            vpn: 3
+        });
+        console.log(singleIPResult['8.8.8.8']);
 
-// Get usage
-proxyCheck.getUsage().then(console.log).catch(console.error);
+        // Check multiple IPs
+        const multipleIPsResult = await proxyCheck.checkIP(['8.8.8.8', '8.8.4.4']);
+        console.log(multipleIPsResult);
 
-// Get queries
-proxyCheck.getQueries().then(console.log).catch(console.error);
+        // Get usage
+        const usage = await proxyCheck.getUsage();
+        console.log(usage);
 
-// Get detections
-proxyCheck.getDetections({ limit: 10, offset: 0 }).then(console.log).catch(console.error);
+        // Get queries
+        const queries = await proxyCheck.getQueries();
+        console.log(queries);
+
+        // Get detections
+        const detections = await proxyCheck.getDetections({ limit: 10, offset: 0 });
+        console.log(detections);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+run();
 ```
 
 ### Methods

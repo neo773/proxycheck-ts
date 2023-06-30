@@ -1,5 +1,38 @@
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
 // src/index.ts
-import fetch from "node-fetch";
+var src_exports = {};
+__export(src_exports, {
+  default: () => src_default
+});
+module.exports = __toCommonJS(src_exports);
+var import_cross_fetch = __toESM(require("cross-fetch"));
 var BASE_URL = "https://proxycheck.io";
 var ProxyCheck = class {
   api_key;
@@ -18,26 +51,26 @@ var ProxyCheck = class {
     }
     if (Array.isArray(ip)) {
       url.searchParams.append("ips", ip.join(","));
-      const response = await fetch(url.toString(), {
+      const response = await (0, import_cross_fetch.default)(url.toString(), {
         method: "POST",
         body: url.searchParams
       });
       return response.json();
     } else {
-      const response = await fetch(url.toString());
+      const response = await (0, import_cross_fetch.default)(url.toString());
       const data = await response.json();
       return convertKeysToSnakeCase(data);
     }
   }
   async getUsage() {
     const url = `${BASE_URL}/dashboard/export/usage/?key=${this.api_key}`;
-    const response = await fetch(url);
+    const response = await (0, import_cross_fetch.default)(url);
     const data = await response.json();
     return convertKeysToSnakeCase(data);
   }
   async getQueries() {
     const url = `${BASE_URL}/dashboard/export/queries/?json=1&key=${this.api_key}`;
-    const response = await fetch(url);
+    const response = await (0, import_cross_fetch.default)(url);
     const data = await response.json();
     return convertToArray(
       convertKeysToSnakeCase(data)
@@ -47,7 +80,7 @@ var ProxyCheck = class {
     const limit = options.limit ?? 100;
     const offset = options.offset ?? 0;
     const url = `${BASE_URL}/dashboard/export/detections/?json=1&key=${this.api_key}&limit=${limit}&offset=${offset}`;
-    const response = await fetch(url);
+    const response = await (0, import_cross_fetch.default)(url);
     const data = await response.json();
     return convertToArray(
       convertKeysToSnakeCase(data)
@@ -76,6 +109,3 @@ function convertKeysToSnakeCase(obj) {
   return snakeCaseObj;
 }
 var src_default = ProxyCheck;
-export {
-  src_default as default
-};

@@ -1,7 +1,6 @@
 {
   "name": "proxycheck-ts",
-  "version": "0.0.5",
-  "type": "module",
+  "version": "0.0.6",
   "description": "ProxyCheck.io API Client",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -21,7 +20,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "node-fetch": "^3.3.1"
   },

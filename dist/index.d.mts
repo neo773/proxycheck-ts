@@ -43,7 +43,7 @@ interface ProxyCheckOptions {
     risk?: 1 | 2;
     port?: 0 | 1;
     seen?: 0 | 1;
-    days?: 0 | 1;
+    days?: number;
     tag?: string;
 }
 interface ProxyCheckGetUsageReturn {

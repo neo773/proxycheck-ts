@@ -39,7 +39,7 @@ var ProxyCheck = class {
   constructor({ api_key }) {
     this.api_key = api_key;
   }
-  async checkIP(ip, options = {}) {
+  async checkIP(ip, options = {}, timeout) {
     const endpoint = Array.isArray(ip) ? "/v2/" : `/v2/${ip}`;
     const url = new URL(`${BASE_URL}${endpoint}`);
     url.searchParams.append("key", this.api_key);
@@ -53,7 +53,8 @@ var ProxyCheck = class {
       url.searchParams.append("ips", ip.join(","));
       const response = await (0, import_cross_fetch.default)(url.toString(), {
         method: "POST",
-        body: url.searchParams
+        body: url.searchParams,
+        signal: AbortSignal.timeout(timeout)
       });
       return response.json();
     } else {

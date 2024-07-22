@@ -54,7 +54,7 @@ interface ProxyCheckGetUsageReturn {
     queries_today: number;
     daily_limit: number;
     queries_total: number;
-    plan_tier: "Free";
+    plan_tier: string;
 }
 interface ProxyCheckDetectionHistory {
     time_formatted: string;
@@ -79,7 +79,7 @@ interface ProxyCheckGetDetectionsOptions {
 declare class ProxyCheck {
     private api_key;
     constructor({ api_key }: ProxyCheckConstructor);
-    checkIP(ip: string | string[], options?: ProxyCheckOptions): Promise<ProxyCheckResponse>;
+    checkIP(ip: string | string[], options?: ProxyCheckOptions, timeout?: number): Promise<ProxyCheckResponse>;
     getUsage(): Promise<ProxyCheckGetUsageReturn>;
     getQueries(): Promise<ProxyCheckQueryHistory[]>;
     getDetections(options?: ProxyCheckGetDetectionsOptions): Promise<ProxyCheckDetectionHistory[]>;

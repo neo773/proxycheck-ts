@@ -1,6 +1,6 @@
 {
   "name": "proxycheck-ts",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "ProxyCheck.io API Client",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

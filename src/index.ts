@@ -81,7 +81,7 @@ interface ProxyCheckGetUsageReturn {
   queries_today: number
   daily_limit: number
   queries_total: number
-  plan_tier: "Free"
+  plan_tier: string
 }
 
 interface ProxyCheckDetectionHistory {
@@ -93,6 +93,7 @@ interface ProxyCheckDetectionHistory {
   answering_node: string
   tag: string
 }
+
 interface ProxyCheckQueryHistory {
   proxies: string
   vpns: string
@@ -114,7 +115,7 @@ class ProxyCheck {
   constructor({ api_key }: ProxyCheckConstructor) {
     this.api_key = api_key
   }
-  async checkIP(ip: string | string[], options: ProxyCheckOptions = {}) {
+  async checkIP(ip: string | string[], options: ProxyCheckOptions = {}, timeout?: number) {
     const endpoint = Array.isArray(ip) ? "/v2/" : `/v2/${ip}`
     const url = new URL(`${BASE_URL}${endpoint}`)
 
@@ -132,6 +133,7 @@ class ProxyCheck {
       const response = await fetch(url.toString(), {
         method: "POST",
         body: url.searchParams,
+        signal: AbortSignal.timeout(timeout)
       })
       return response.json() as unknown as ProxyCheckResponse
     } else {

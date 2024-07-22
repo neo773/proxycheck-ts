@@ -52,7 +52,7 @@ run();
 
 ### Methods
 
-- `checkIP(ip: string | string[], options: ProxyCheckOptions = {})`: Checks if an IP or array of IPs are proxies or VPNs. Returns a `ProxyCheckResponse`.
+- `checkIP(ip: string | string[], options: ProxyCheckOptions = {}, timeout?: number)`: Checks if an IP or array of IPs are proxies or VPNs. Returns a `ProxyCheckResponse`.
 
 - `getUsage()`: Retrieves your ProxyCheck.io account usage. Returns a `ProxyCheckGetUsageReturn`.
 

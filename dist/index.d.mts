@@ -1,6 +1,7 @@
 type Type = "Residential" | "Wireless" | "Business" | "Hosting" | "TOR" | "SOCKS" | "SOCKS4" | "SOCKS4A" | "SOCKS5" | "SOCKS5H" | "Shadowsocks" | "HTTP" | "HTTPS" | "Compromised Server" | "Inference Engine" | "OpenVPN" | "VPN" | "whitelisted by x" | "blacklisted by x";
 type Status = "ok" | "warning" | "denied" | "error";
 type IPAddressInfo = {
+    ip?: string;
     asn: string;
     provider: string;
     organisation: string;
@@ -14,7 +15,7 @@ type IPAddressInfo = {
     city: string;
     latitude: number;
     longitude: number;
-    currency: {
+    currency?: {
         code: string;
         name: string;
         symbol: string;
@@ -28,9 +29,9 @@ type ProxyCheckResponse = {
     status: Status;
     node?: string;
     query_time?: string;
-} & {
+} & ({
     [ipAddress: string]: IPAddressInfo;
-};
+} | IPAddressInfo);
 interface ProxyCheckConstructor {
     api_key: string;
 }
@@ -45,6 +46,8 @@ interface ProxyCheckOptions {
     seen?: 0 | 1;
     days?: number;
     tag?: string;
+    cur?: 0 | 1;
+    short?: 0 | 1;
 }
 interface ProxyCheckGetUsageReturn {
     error?: string;

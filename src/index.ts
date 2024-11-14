@@ -24,6 +24,7 @@ type Type =
 type Status = "ok" | "warning" | "denied" | "error"
 
 export type IPAddressInfo = {
+  ip?: string
   asn: string
   provider: string
   organisation: string
@@ -37,7 +38,7 @@ export type IPAddressInfo = {
   city: string
   latitude: number
   longitude: number
-  currency: {
+  currency?: {
     code: string
     name: string
     symbol: string
@@ -52,9 +53,12 @@ export type ProxyCheckResponse = {
   status: Status
   node?: string
   query_time?: string
-} & {
-  [ipAddress: string]: IPAddressInfo
-}
+} & (
+  | {
+      [ipAddress: string]: IPAddressInfo
+    }
+  | IPAddressInfo
+)
 
 interface ProxyCheckConstructor {
   api_key: string
@@ -71,6 +75,8 @@ interface ProxyCheckOptions {
   seen?: 0 | 1
   days?: number
   tag?: string
+  cur?: 0 | 1
+  short?: 0 | 1
 }
 
 interface ProxyCheckGetUsageReturn {
